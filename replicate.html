@@ -1,0 +1,516 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+  	  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	
+	
+    
+     <link href="{{url_for('static', filename='css/img_popup.css')}}" rel="stylesheet">
+	<link href="{{url_for('static', filename='css/style.css')}}" rel="stylesheet">
+
+	
+	<script type="text/javascript">
+    document.title = "{{ content.ngo }}";
+</script>  
+  <style>
+      /* note: this is a hack for ios iframe for bootstrap themes shopify page */
+      /* this chunk of css is not part of the toolkit :) */
+      /* …curses ios, etc… */
+      @media (max-width: 768px) and (-webkit-min-device-pixel-ratio: 2) {
+        body {
+         font-family: 'head_font'
+          width: 1px;
+          min-width: 100%;
+          *width: 100%;
+        }
+        #stage {
+          height: 1px;
+          overflow: auto;
+          min-height: 100vh;
+          -webkit-overflow-scrolling: touch;
+        }
+
+        img.image {
+          max-width: 100%; 
+          height: auto; 
+          align-content: center;
+          
+
+        }
+      }
+
+      @media only screen and (min-width: 768px) {
+      	img.image{
+          max-width: 500px; 
+          height: auto; 
+          align-content: center;
+
+
+      	}
+      }
+
+
+  /* Make the image fully responsive */
+
+  }
+.carousel-item {
+    position: absolute;  margin-right: 5%;
+}
+
+.carousel-indicators {
+ top: 340px; width: 60%; padding-left: 0; margin-left: 20%; text-align: center; list-style: none;
+}
+ 
+</style>
+</head>
+
+<body >
+       <div>
+		<button id="top_btn">
+		
+			<i class="fa fa-chevron-circle-up fa-4x" aria-hidden="true"></i>
+		</button>
+	   </div>
+
+		<!--nav part-->
+<nav class="navbar navbar-toggleable-md navbar-grey bg-faded blue_logo_part ">
+	   <a class="navbar-brand" href="#">
+
+	  
+	  	{% if ( content.logo != "" )%}
+	<img id="myImg" src="../static/image/{{ content.logo }}"  alt="{{ content.logo}}" style="width:100px; height:100px" class="img-responsive logo_style" onclick="myFunction(this);">
+ 
+        {% else %}
+	<label class="logo_text" style="font-family:century gothic;"><strong> {{ content.ngo}} </strong></label>
+		
+		{% endif %}
+	  </a>
+	
+	
+	 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+	  	<a href="#contact">
+	  <img src="../static/image/contact-us-phone-icon-01.png" class="img-responsive call_icon">
+	  </a>
+  	  </button> 
+	  
+	  
+  <div class="collapse navbar-collapse elarning_style" id="navbarNav">
+      <ul class="navbar-nav ml-auto">
+		<li class="nav-item ">
+			<a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#about">Our Team</a>
+		</li>
+			
+		<li class="nav-item">
+			<a class="nav-link" href="#stories">Impact</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" href="#Volunteer">How to Volunteer</a>
+		</li>  
+		<li class="nav-item">
+			<a class="nav-link" href="#contact">Contact Us</a>
+		</li> 	
+		<li class="nav-item">
+			<a class="nav-link btn btn-info donate_btn" href="#donation">DONATE</a>
+		</li>
+      </ul>
+  </div>
+    <div class="float-sm-right"></div>
+</nav>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+          <button onclick="this.parentElement.style.display='none'" type="button" class="close" data-dismiss="modal">&times;</button>
+  <img class="modal-content" id="img01">
+  <div id="caption"></div>
+</div>
+
+
+<!-- banner part-->
+<div class="container-fluid container">
+	<div class=" mx-auto d-block">
+		<div class="col-sm-12 text-center">
+		<br>
+		<br>
+		<h1 class="text-grey text-center banner_head">{{ content.main_title }}</h1>
+		<p class="banner_para text-grey text-center">{{ content.main_text }}</p>
+		{% if ( content.image1 != "" )%}
+		<img id="myImg" class="image"  id="image" src="../static/image/{{ content.image1 }}" alt="{{content.image}}"  class="img-responsive mx-auto d-block" onclick="myFunction(this);">
+		{% endif %}
+        </div>
+	</div><!--banner_part-->
+</div>
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 text-center">
+			<br>
+			<!--<a href="#donation"><button class="btn btn-info donate_btn_two">DONATE</button></a>-->
+
+			 <button class="btn btn-info donate_btn_two" id="rzp-button1">DONATE</button>
+    
+			<a href="#Volunteer"><button class="btn btn-info donate_btn_two1" style="margin:0 0 0 0;">VOLUNTEER </button></a>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 text-center">
+			<h2 class="why_head">{{ content.sub_title }}</h2>
+            {% if ( content.image2 != "" )%}
+			<img id="myImg"  class="image" src="../static/image/{{ content.image2 }}" class="img-responsive mx-auto d-block"  onclick="myFunction(this);">
+			{% endif %}
+			<p class="why_para" align="justify">{{ content.sub_text }}</p>
+		  <div class="text-center">
+			<br>
+            <br>
+		  </div>	
+		</div>
+	</div>
+
+	<!--carousel part-->
+
+{% if ( act|length != 0 )%}
+
+  <div class="row " id="stories">
+  	<div class="col-sm-12 mx-auto">
+	  <h2 class="about_head text-center">We in action</h2> <br/>
+		
+
+        <div id="our_work" class="carousel slide" data-ride="carousel" data-interval="false"  align="center">
+          <!-- Indicators -->
+          <ol class="carousel-indicators" >
+  	      {% for i in range(0, act|length) %}
+           <li data-target="#our_work" data-slide-to="(loop.index - 1)" class="{% if loop.index == 1 %} active{% endif %}"></li>
+          {% endfor %}
+          </ol>
+ 
+          <!-- The slideshow -->
+          <div class="carousel-inner">
+    
+          {% for i in range(0, act|length) %}
+          <div class="carousel-item {% if loop.index == 1 %} active{% endif %}" align="center">
+     	    <div class="row">
+     		  <div class="container">
+                <img id="myImg" src="../static/image/{{ act[i].image }}" alt="{{ act[i].image }}" style="width:276px;height:360px;" onclick="myFunction(this);">
+              </div>
+              <div class="container">
+  	          <br>
+              <h2 class="school_head text-center">{{ act[i].headline }}</h2>
+              <p class="school_para text-center">{{ act[i].text }}</p>
+              <br>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+
+          </div>
+  
+          <!-- Left and right controls -->
+          
+          <a class="carousel-control-prev"  href="#our_work" data-slide="prev" >
+          	{% if (act|length > 1)  %}
+  	       <i class="fa fa-angle-left" style="font-size:54px;color:red;" ></i>
+  	         {% endif %}
+           <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next"  href="#our_work" data-slide="next" >
+          	{% if (act|length > 1)  %}
+           <i class="fa fa-angle-right" style="font-size:54px;color:red;"></i>
+            {% endif %}
+           <span class="sr-only">Next</span>
+          </a>
+         
+        </div>
+    </div>
+  </div>
+
+{% endif %}
+
+	<!--about us-->
+	{% if ( post|length != 0 )%}
+
+  <div class="row" id="about">
+  	<div class="col-sm-12 mx-auto">
+			<h2 class="about_head text-center">Our Team<br><br></h2>
+			
+
+
+        <div id="our_team" class="carousel slide" data-ride="carousel" data-interval="false"  align="center">
+           <!-- Indicators -->
+           <ol class="carousel-indicators" >
+  	       {% for i in range(0, post|length) %}
+           <li data-target="#our_team" data-slide-to="(loop.index - 1)" class="{% if loop.index == 1 %} active{% endif %}"></li>
+           {% endfor %}
+           </ol>
+ 
+           <!-- The slideshow -->
+           <div class="carousel-inner"> 
+             {% for i in range(0, post|length) %}
+                <div  class="carousel-item {% if loop.index == 1 %} active{% endif %}" align="center">
+     	          <div class="row">
+     	          	
+     		        <div class="container ">
+     		        {% if (post[i].photo != "None") %}
+                      <img id="myImg" src="../static/image/{{ post[i].photo }}" alt="{{ post[i].photo }}" style="width:276px;height:360px;" onclick="myFunction(this);">
+                     {% endif %}
+                    </div>
+                   
+                    <div class="container">
+  	                  <br>
+                      <p class="about-para1 text-center" style="margin:20px 0 0 0;">{{ post[i].name }}</p>
+                      <p class="about-para text-center" style="margin:0 0 0 0;">{{ post[i].text }}</p>
+                    </div>
+                  </div>
+                </div>
+             {% endfor %}
+
+           </div>
+ 
+           <!-- Left and right controls -->
+         
+           <a class="carousel-control-prev"  href="#our_team" data-slide="prev" >
+           	{% if (post|length > 1)  %}
+           	 <i class="fa fa-angle-left" style="font-size:54px;color:red"></i> 
+           	{% endif %}
+            <span class="sr-only">Previous</span>
+             
+           </a>
+           <a class="carousel-control-next"  href="#our_team" data-slide="next">
+           	{% if (post|length > 1)  %}
+             <i class="fa fa-angle-right" style="font-size:54px;color:red"></i>
+             {% endif %}
+             <span class="sr-only">Next</span>
+           </a>
+          
+        </div>
+
+	</div>
+  </div>
+{% endif %}
+
+
+
+	<!--DONATE US-->
+
+  <div class="row">
+	<div class="col-sm-12 mx-auto text-center" id="donation">
+		
+		<h2 class="donation_head">Donations</h2>
+		<p class="about-para text-center"> We really appreciate your support. Please send donation to the below account.</p>
+			<Section class="about-para text-center">
+				<p> Account Number : {{ content.account_num }}</p>
+				<p> Bank : {{ content.bank_name }}</p>
+				<p> Branch : {{ content.branch }} </p>
+				<p> IFSC Code : {{ content.ifsc_code }}</p>
+			</Section>
+
+		<p class="about-para text-center"> All donations are eligible for tax savings under 80G</p>	
+	</div>
+  </div>
+
+	
+	<!--volunteer part-->
+
+
+
+
+	<div class="row volunteer_part" id="Volunteer">
+		<div class="col-sm-12">
+			<h2 class="volunteer">Volunteer</h2>
+			<p class="volunteer_para text-center">We welcome volunteers to help us in our mission. Please enter details below and we will get in touch with you.</p>
+			<form id="volunteer-form" data-fv-framework="bootstrap4" method="post" role="form" onsubmit="return validateForm()">
+				
+					
+					<div class="row text-center form-group">
+					<div class="col-sm-12">
+				<label>Name</label>
+				 <input type="text" name="name" class="form-control my_form mx-auto d-block" id="name"  required> 
+					</div>
+				</div>				
+				
+				<div class="row text-center form-group">
+					<div class="col-sm-12">
+				<label>Email</label>
+				<input type="email" name="email" class="form-control my_form mx-auto d-block" id="email"  required=""> 
+					</div>
+				</div>
+				
+				<div class="row text-center form-group">
+					<div class="col-sm-12">
+				<label>Mobile</label>
+				<input type="number" name="mobile" class="form-control my_form mx-auto d-block" id="mobile" maxLength="10" required=""> 
+					</div>
+				</div>
+				
+
+				<div class="row">
+					<div class="col-sm-12 text-center">
+					<button class="btn btn-info submit_btn" >Submit</button>
+					</div>
+				</div> 
+				
+			</form>
+		</div>
+    </div>	
+
+<div class="modal fade" id="messageModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            ...
+
+            <div class="modal-body">
+                <!-- The messages container -->
+                <div id="errors"></div>
+            </div>
+
+            ...
+        </div>
+    </div>
+</div>
+
+
+ 
+
+
+<!--footer-->
+
+
+<!--container-fluid-->
+<div class=" footer_part" id="contact">
+	
+	
+			<h2 class="text-center contact_head">Contact Us</h2>
+
+			
+		<!--	<a href="https://goo.gl/maps/e6GtW7gt6Jm">
+				<img  src="../static/image/Map icon.jpg" class="img-responsive map_icon mx-auto d-block" >
+			</a> -->
+			
+		<p class="footer_para"><i class="fa fa-map-marker icon-style" ></i>  {{ content.address }}</p>
+		<p class="footer_para"><i class="fa fa-envelope icon-style" ></i>  {{ content.email }} </p>
+		<p class="footer_para"><i class="fa fa-phone icon-style" ></i> {{ content.contact }}</p>	
+</div>
+
+<div class=" footer_part2">
+	<div class="row">
+		<div class="col-sm-12">
+		
+		<a href="{{ url_for('.edit_mode', slug = content.slug ) }}" ><i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+
+		
+		</div>
+	</div>
+</div>
+
+
+
+</div>
+<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  
+      
+    
+
+<script>
+// Get the modal
+function myFunction(imgs) {
+var modal = document.getElementById('myModal');
+
+// Get the image and insert it inside the modal - use its "alt" text as a caption
+
+var modalImg = document.getElementById("img01");
+var captionText = document.getElementById("caption");
+    modal.style.display = "block";
+    modalImg.src = imgs.src;
+    captionText.innerHTML = imgs.alt;
+}
+</script>
+
+
+<script type="text/javascript">     
+var formSuccess = ("{{success}}");
+	
+$(document).ready(function(){
+
+	//var x = (typeof(formSuccess) )
+   // alert(formSuccess)
+if ( formSuccess == 'True'){
+	//
+	alert("Thank you for your interest in Volunteering! Our team will contact you shortly.");
+    
+    }
+    else
+    {}
+
+});
+
+</script>
+
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+var options = {
+    "key": "rzp_test_hkRpWpxuYIk9AO",
+     // 2000 paise = INR 20
+    "name": "1 NGO",
+    "description": "{{content.ngo}}",
+    "image": "/your_logo.png",
+    "handler": function (response){
+        alert(response.razorpay_payment_id);
+    },
+    "prefill": {
+        "name": "Harshil Mathur",
+        "email": "harshil@razorpay.com",
+        "amount": "5000"
+    },
+    "notes": {
+        "address": "Hello World"
+    },
+    "theme": {
+        "color": "#F37254"
+    }
+};
+var rzp1 = new Razorpay(options);
+
+document.getElementById('rzp-button1').onclick = function(e){
+    rzp1.open();
+    e.preventDefault();
+}
+</script>
+
+
+ 
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
